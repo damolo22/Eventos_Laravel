@@ -1,11 +1,91 @@
-@import 'tailwindcss';
+/* resources/css/app.css o tu archivo principal */
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
+/* ------------------------------------------- */
+/* 1. PALETA Y TIPOGRAFÍA BASE */
+/* ------------------------------------------- */
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+/* Define variables para la paleta de colores */
+:root {
+    --color-primary: #198754; /* El verde que tienes */
+    --color-secondary: #6c757d;
+    --color-bg-light: #f8f9fa; /* Fondo muy claro */
+    --color-card-bg: #ffffff; /* Fondo de tarjetas blanco */
+    --color-shadow: rgba(0, 0, 0, 0.05); /* Sombra suave */
+}
+
+body {
+    background-color: var(--color-bg-light); /* Aplica el fondo claro */
+    font-family: 'Inter', sans-serif, system-ui; /* Tipografía moderna (si la cargas) */
+}
+
+/* ------------------------------------------- */
+/* 2. LAYOUT Y CONTENEDOR */
+/* ------------------------------------------- */
+
+.container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+/* ------------------------------------------- */
+/* 3. ESTILO DE TARJETAS (Card) */
+/* ------------------------------------------- */
+
+.card {
+    border: none; /* Quitamos el borde por defecto */
+    border-radius: 12px; /* Esquinas más redondeadas */
+    box-shadow: 0 4px 12px var(--color-shadow); /* Sombra más definida */
+    transition: transform 0.3s ease-in-out; /* Animación al pasar el ratón */
+}
+
+.card:hover {
+    transform: translateY(-2px); /* Pequeño levantamiento al hacer hover */
+}
+
+.card-header {
+    background-color: var(--color-card-bg); /* Fondo blanco para el header */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08); /* Separador suave */
+    font-weight: 600; /* Texto más grueso */
+}
+
+/* ------------------------------------------- */
+/* 4. TABLAS (index.blade.php) */
+/* ------------------------------------------- */
+
+.table {
+    border-radius: 10px;
+    overflow: hidden; /* Necesario para que el border-radius afecte a la tabla */
+}
+
+.table th {
+    background-color: var(--color-primary); /* Fondo verde en los encabezados */
+    color: white; /* Texto blanco en el encabezado */
+    border: none;
+    font-weight: 700;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #e9ecef; /* Un gris claro al pasar el ratón */
+}
+
+/* ------------------------------------------- */
+/* 5. BOTONES Y ACENTOS */
+/* ------------------------------------------- */
+
+.btn {
+    border-radius: 8px; /* Botones más redondeados */
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.2s ease;
+}
+
+.text-primary {
+    color: var(--color-primary) !important;
+}
+
+/* Estilo para los enlaces de acciones dentro de las tablas */
+td a {
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--color-primary);
 }
