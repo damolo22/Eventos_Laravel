@@ -46,7 +46,7 @@
                             </td>
                             
                             <td class="align-middle">
-                                <a href="{{ route('events.show', $evento) }}" class="btn btn-info btn-sm text-white me-1">Mostrar</a>
+                                <a href="{{ route('events.show', $evento) }}" class="btn btn-success btn-sm text-white me-1">Mostrar</a>
                                 <a href="{{ route('events.edit', $evento) }}" class="btn btn-warning btn-sm me-1">Editar</a>
                                 
                                 <form action="{{ route('events.destroy', $evento) }}" method="POST" style="display:inline;">
@@ -60,7 +60,7 @@
                         </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="text-center text-muted py-4">No hay eventos para mostrar. ¡Crea el primero desde aquí! 🚀</td>
+                                <td colspan="5" class="text-center text-muted py-4">No hay eventos para mostrar.</td>
                             </tr>
                         @endforelse
                     </tbody>

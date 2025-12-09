@@ -4,7 +4,7 @@
     <div class="container py-4">
         
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1>👤 Detalles de **{{ $organizadore->nombre }}**</h1>
+            <h1>Detalles de : **{{ $organizadore->nombre }}**</h1>
             <a href="{{ route('organizadores.index') }}" class="btn btn-outline-secondary">
                 <i class="fas fa-arrow-left me-2"></i> Volver a la Lista
             </a>
@@ -73,9 +73,45 @@
             </form>
         </div>
 
-        <div class="mt-5 pt-3 border-top">
-            <h3 class="text-muted">Eventos Relacionados</h3>
-            <p class="text-secondary">Aquí es donde iría la lista de todos los eventos organizados por {{ $organizadore->nombre }} cuando implementemos las relaciones. ¡*Stay tuned*!</p>
+        <div class="card mt-5">
+            <div class="card-header bg-light">
+                <h3 class="mb-0 text-dark">Eventos Organizados</h3>
+            </div>
+            <div class="card-body p-0">
+                
+                @if($organizadore->events->count() > 0)
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th style="width: 5%;">ID</th>
+                                <th style="width: 50%;">Título</th>
+                                <th style="width: 25%;">Fecha</th>
+                                <th style="width: 20%;">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{-- Bucle para recorrer la relación hasMany --}}
+                            @foreach ($organizadore->events as $event)
+                                <tr>
+                                    <td class="align-middle">{{ $event->id }}</td>
+                                    <td class="align-middle">{{ $event->titulo }}</td>
+                                    {{-- Usamos format() en la fecha, ya que está casteada a datetime en el modelo --}}
+                                    <td class="align-middle">{{ $event->fecha->format('d/m/Y') }}</td>
+                                    <td class="align-middle">
+                                        <a href="{{ route('events.show', $event) }}" class="btn btn-success btn-sm">Mostrar Evento</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                @else
+                    <p class="p-3 text-muted mb-0">
+                        Este organizador aún no tiene eventos asignados. ¡Crea uno desde <a href="{{ route('events.create') }}">aquí</a>!
+                    </p>
+                @endif
+
+            </div>
         </div>
+
     </div>
 @endsection

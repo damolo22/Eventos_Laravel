@@ -3,62 +3,76 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Asistente;
+use App\Models\Event;
 
 class AsistenteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+/** Muestra una lista de todos los asistentes. */
     public function index()
     {
-        //
+        $asistentes = Asistente::orderBy('nombre')->get();
+        return view('asistentes.index', compact('asistentes'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    /** Muestra el formulario para crear un nuevo asistente. */
     public function create()
     {
-        //
+        $events = Event::orderBy('titulo')->get(); 
+        return view('asistentes.create', compact('events')); 
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    /** Almacena un asistente recién creado en la DB. */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombre' => 'required|max:100',
+            'correo' => 'required|email|unique:asistentes,correo',
+            'event_id' => 'nullable|exists:events,id', 
+        ]);
+
+        Asistente::create($request->all());
+
+        return redirect()->route('asistentes.index')
+        ->with('success', '¡Asistente añadido!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    /** Muestra los detalles del asistente especificado. */
+    public function show(Asistente $asistente)
     {
-        //
+        return view('asistentes.show', compact('asistente'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    /** Muestra el formulario para editar el asistente especificado. */
+    public function edit(Asistente $asistente)
     {
-        //
+
+        $events = Event::orderBy('titulo')->get();
+
+        return view('asistentes.edit', compact('asistente' , 'events'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    /** Actualiza el asistente especificado en la DB. */
+    public function update(Request $request, Asistente $asistente)
     {
-        //
+        $request->validate([
+            'nombre' => 'required|max:100',
+            'correo' => 'required|email|unique:asistentes,correo,' . $asistente->id,
+            'event_id' => 'nullable|exists:events,id', 
+        ]);
+
+        $asistente->update($request->all());
+
+        return redirect()->route('asistentes.index')
+            ->with('success', 'Asistente actualizado.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    /** Elimina el asistente de la DB. */
+    public function destroy(Asistente $asistente)
     {
-        //
+        $asistente->delete();
+
+        return redirect()->route('asistentes.index')
+            ->with('success', 'Asistente eliminado.');
     }
 }

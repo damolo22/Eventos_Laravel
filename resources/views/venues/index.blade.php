@@ -23,9 +23,9 @@
                         <tr>
                             <th style="width: 5%;">ID</th>
                             <th style="width: 30%;">Nombre</th>
-                            <th style="width: 40%;">Dirección</th>
+                            <th style="width: 30%;">Dirección</th>
                             <th style="width: 10%;">Capacidad</th>
-                            <th style="width: 15%;">Acciones</th>
+                            <th style="width: 25%;">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -34,11 +34,25 @@
                             <td class="align-middle">{{ $venue->id }}</td>
                             <td class="align-middle">{{ $venue->nombre }}</td>
                             <td class="align-middle">{{ $venue->direccion }}</td>
-                            <td class="align-middle">{{ $venue->capacidad ?? 'N/A' }}</td>
+                            <td class="align-middle">{{ $venue->capacidad }}</td>
                             <td class="align-middle">
-                                <a href="{{ route('venues.show', $venue) }}" class="btn btn-info btn-sm text-white me-1">Mostrar</a>
-                                
-                                </td>
+                                <form action="{{ route('venues.destroy', $venue) }}" method="POST" style="display:inline;">
+                                    
+                                    {{-- Botón MOSTRAR (Usando btn-success como decidimos antes) --}}
+                                    <a href="{{ route('venues.show', $venue) }}" class="btn btn-success btn-sm text-white me-1">Mostrar</a>
+                                    
+                                    {{-- Botón EDITAR --}}
+                                    <a href="{{ route('venues.edit', $venue) }}" class="btn btn-warning btn-sm me-1">Editar</a>
+                                    
+                                    @csrf
+                                    @method('DELETE')
+                                    
+                                    {{-- Botón ELIMINAR --}}
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Seguro que quieres eliminar esta sede?');">
+                                        Eliminar
+                                    </button>
+                                </form>
+                            </td>
                         </tr>
                         @empty
                             <tr>
@@ -48,11 +62,12 @@
                     </tbody>
                 </table>
             </div>
-            <div class="card-footer bg-white border-0">
+            {{-- Si usas paginación... --}}
+            {{-- <div class="card-footer bg-white border-0">
                 <div class="d-flex justify-content-center">
                     {{ $venues->links() }} 
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 @endsection

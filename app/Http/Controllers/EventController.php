@@ -6,6 +6,7 @@ use App\Models\Event;
 use App\Models\Organizer; 
 use App\Models\Venue;
 use Illuminate\Http\Request;
+use App\Models\Asistente;
 
 class EventController extends Controller
 {
@@ -45,7 +46,7 @@ class EventController extends Controller
         Event::create($request->all());
 
         return redirect()->route('events.index')
-             ->with('success', '¡Evento creado de maravilla!');
+             ->with('success', '¡Evento creado!');
     }
 
     /**
@@ -61,8 +62,10 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-        $organizadores = Organizer::orderBy('nombre')->get(); 
-        return view('events.edit', compact('event', 'organizadores'));
+       $organizadores = Organizer::orderBy('nombre')->get();
+        $venues = Venue::orderBy('nombre')->get();
+
+    return view('events.edit', compact('event', 'organizadores', 'venues'));
     }
 
     /**
@@ -94,4 +97,5 @@ class EventController extends Controller
         return redirect()->route('events.index')
             ->with('success', 'Evento eliminado. Adiós.');
     }
+
 }

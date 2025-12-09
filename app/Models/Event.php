@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo; 
-use Illuminate\Database\Eloquent\Relations\BelongsToMany; 
+use Illuminate\Database\Eloquent\Relations\HasMany; 
 
 class Event extends Model
 {
@@ -34,10 +34,10 @@ class Event extends Model
     }
 
     /**
-     * Un evento tiene muchos participantes (Relación N:M)
+     * Un evento tiene muchos asistentes (Relación 1:N -)
      */
-    public function asistentes(): BelongsToMany
+    public function asistentes(): HasMany 
     {
-        return $this->belongsToMany(Asistente::class);
+        return $this->hasMany(Asistente::class); 
     }
 }

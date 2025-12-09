@@ -100,6 +100,8 @@
                     <small class="text-danger mt-2 d-block">¡Warning! No hay sedes creadas. ¡Crea una primero!</small>
                 @endif
             </div>
+
+            
             <button type="submit" class="btn btn-primary mt-3">
                 Crear Evento
             </button>

@@ -38,7 +38,7 @@ class OrganizerController extends Controller
         Organizer::create($request->all());
 
         return redirect()->route('organizadores.index')
-            ->with('success', '¡Organizador creado full!');
+            ->with('success', '¡Organizador creado !');
     }
 
     /**

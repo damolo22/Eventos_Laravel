@@ -1,90 +1,95 @@
-@extends('layouts.app') 
+@extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <h2>Editar Evento: **{{ $event->titulo }}**</h2>
-        
-        <a href="{{ route('events.index') }}" class="btn btn-secondary mb-3">
-            Volver a la Lista
-        </a>
+<div class="container">
+    <h2>Editar Evento: **{{ $event->titulo }}**</h2>
+    
+    <a class="btn btn-primary" href="{{ route('events.index') }}"> Volver</a>
+    <br><br>
 
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <strong>Error!</strong> Hay problemas con la info que subiste.<br><br>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
-        <form action="{{ route('events.update', $event) }}" method="POST">
-            @csrf
-            @method('PUT') 
+    <form action="{{ route('events.update', $event->id) }}" method="POST">
+        @csrf
+        @method('PUT')
 
-            <div class="form-group mb-3">
-                <label for="titulo">Título del Evento:</label>
-                <input 
-                    type="text" 
-                    class="form-control" 
-                    id="titulo" 
-                    name="titulo" 
-                    required 
-                    value="{{ old('titulo', $event->titulo) }}"
-                >
+        <div class="row">
+            {{-- Título --}}
+            <div class="col-xs-12 col-sm-12 col-md-12 mb-3">
+                <div class="form-group">
+                    <strong>Título del Evento:</strong>
+                    <input type="text" name="titulo" value="{{ old('titulo', $event->titulo) }}" class="form-control" placeholder="Título">
+                </div>
             </div>
             
-            <div class="form-group mb-3">
-                <label for="descripcion">Descripción:</label>
-                <textarea 
-                    class="form-control" 
-                    id="descripcion" 
-                    name="descripcion" 
-                    rows="3"
-                >{{ old('descripcion', $event->descripcion) }}</textarea>
+            {{-- Descripción --}}
+            <div class="col-xs-12 col-sm-12 col-md-12 mb-3">
+                <div class="form-group">
+                    <strong>Descripción:</strong>
+                    <textarea class="form-control" style="height:150px" name="descripcion" placeholder="Descripción">{{ old('descripcion', $event->descripcion) }}</textarea>
+                </div>
             </div>
 
-            <div class="form-group mb-3">
-                <label for="fecha">Fecha y Hora:</label>
-                @php
-                    $fecha_formateada = $event->fecha ? \Carbon\Carbon::parse($event->fecha)->format('Y-m-d\TH:i') : null;
-                @endphp
-                <input 
-                    type="datetime-local" 
-                    class="form-control" 
-                    id="fecha" 
-                    name="fecha" 
-                    required 
-                    value="{{ old('fecha', $fecha_formateada) }}"
-                >
+            {{-- Fecha y Hora --}}
+            <div class="col-xs-12 col-sm-12 col-md-6 mb-3">
+                <div class="form-group">
+                    <strong>Fecha y Hora:</strong>
+                    {{-- Formateamos la fecha a un formato compatible con el input datetime-local --}}
+                    @php
+                        $datetimeValue = old('fecha', $event->fecha ? $event->fecha->format('Y-m-d\TH:i') : '');
+                    @endphp
+                    <input type="datetime-local" name="fecha" value="{{ $datetimeValue }}" class="form-control">
+                </div>
             </div>
 
-            <div class="form-group mb-4">
-                <label for="organizer_id">Organizador:</label>
-                <select 
-                    class="form-control" 
-                    id="organizer_id" 
-                    name="organizer_id" 
-                    required
-                >
-                    <option value="">-- Selecciona un Organizador --</option>
-                    @foreach ($organizadores as $organizador)
-                        @php
-                            $selected = (old('organizer_id') == $organizador->id) || ($event->organizer_id == $organizador->id);
-                        @endphp
-                        <option 
-                            value="{{ $organizador->id }}"
-                            {{ $selected ? 'selected' : '' }}
-                        >
-                            {{ $organizador->nombre }}
-                        </option>
-                    @endforeach
-                </select>
+            {{-- Organizador (Relación N:1) --}}
+            <div class="col-xs-12 col-sm-12 col-md-6 mb-3">
+                <div class="form-group">
+                    <strong>Organizador:</strong>
+                    <select name="organizer_id" class="form-control">
+                        <option value="">-- Selecciona un Organizador --</option>
+                        {{-- Asumo que tienes la variable $organizadores --}}
+                        @foreach ($organizadores as $organizador)
+                            <option value="{{ $organizador->id }}" 
+                                {{ (old('organizer_id', $event->organizer_id) == $organizador->id) ? 'selected' : '' }}>
+                                {{ $organizador->nombre }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
+            
+            {{-- 🔥 CAMPO DE SELECCIÓN DE SEDE (venue_id) 🔥 --}}
+            <div class="col-xs-12 col-sm-12 col-md-12 mb-4">
+                <div class="form-group">
+                    <strong>Sede (Venue):</strong>
+                    <select name="venue_id" class="form-control">
+                        <option value="">-- Selecciona una Sede --</option>
+                        {{-- Usamos la variable $venues --}}
+                        @foreach ($venues as $venue)
+                            <option value="{{ $venue->id }}" 
+                                {{ (old('venue_id', $event->venue_id) == $venue->id) ? 'selected' : '' }}>
+                                {{ $venue->nombre }} (Capacidad: {{ number_format($venue->capacidad, 0, ',', '.') }})
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            {{-- 🔥 FIN CAMPO DE SELECCIÓN DE SEDE 🔥 --}}
 
-            <button type="submit" class="btn btn-success mt-3">
-                Guardar Cambios
-            </button>
-        </form>
-    </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                <button type="submit" class="btn btn-success">Guardar Cambios</button>
+            </div>
+        </div>
+    </form>
+</div>
 @endsection

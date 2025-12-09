@@ -39,7 +39,7 @@ class VenueController extends Controller
         Venue::create($request->all());
 
         return redirect()->route('venues.index')
-                         ->with('success', 'Sede creada con éxito. ¡Ya puedes asignarla a un evento! 🏟️');
+        ->with('success', 'Sede creada con éxito.');
     }
 
     /**
@@ -72,7 +72,7 @@ class VenueController extends Controller
         $venue->update($request->all());
 
         return redirect()->route('venues.index')
-                         ->with('success', 'Sede actualizada correctamente. 💾');
+        ->with('success', 'Sede actualizada correctamente. 💾');
     }
 
     /**
@@ -83,6 +83,6 @@ class VenueController extends Controller
         $venue->delete();
 
         return redirect()->route('venues.index')
-                         ->with('success', 'Sede eliminada. ¡Bye, bye! 👋');
+        ->with('success', 'Sede eliminada. ¡Bye, bye! 👋');
     }
 }

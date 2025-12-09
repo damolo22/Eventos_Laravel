@@ -10,13 +10,11 @@ class Asistente extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nombre', 'correo'];
+    protected $fillable = ['nombre', 'correo','event_id'];
 
-    /**
-     * Un participante asiste a muchos eventos (Relación N:M)
-     */
-    public function events(): BelongsToMany
+public function event()
     {
-        return $this->belongsToMany(Event::class);
+    // Un Asistente pertenece a un Evento
+    return $this->belongsTo(Event::class);
     }
 }
