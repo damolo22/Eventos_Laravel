@@ -34,9 +34,9 @@ class Event extends Model
     }
 
     /**
-     * Un evento tiene muchos asistentes (Relación 1:N -)
+     * Un evento tiene muchos asistentes (Relación 1:N)
      */
-    public function asistentes(): HasMany 
+    public function asistentes() 
     {
         return $this->hasMany(Asistente::class); 
     }

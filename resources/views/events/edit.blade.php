@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h2>Editar Evento: **{{ $event->titulo }}**</h2>
+    <h2>Editar Evento: {{ $event->titulo }}</h2>
     
     <a class="btn btn-primary" href="{{ route('events.index') }}"> Volver</a>
     <br><br>
@@ -43,7 +43,6 @@
             <div class="col-xs-12 col-sm-12 col-md-6 mb-3">
                 <div class="form-group">
                     <strong>Fecha y Hora:</strong>
-                    {{-- Formateamos la fecha a un formato compatible con el input datetime-local --}}
                     @php
                         $datetimeValue = old('fecha', $event->fecha ? $event->fecha->format('Y-m-d\TH:i') : '');
                     @endphp
@@ -57,7 +56,6 @@
                     <strong>Organizador:</strong>
                     <select name="organizer_id" class="form-control">
                         <option value="">-- Selecciona un Organizador --</option>
-                        {{-- Asumo que tienes la variable $organizadores --}}
                         @foreach ($organizadores as $organizador)
                             <option value="{{ $organizador->id }}" 
                                 {{ (old('organizer_id', $event->organizer_id) == $organizador->id) ? 'selected' : '' }}>
@@ -68,13 +66,11 @@
                 </div>
             </div>
             
-            {{-- 🔥 CAMPO DE SELECCIÓN DE SEDE (venue_id) 🔥 --}}
             <div class="col-xs-12 col-sm-12 col-md-12 mb-4">
                 <div class="form-group">
                     <strong>Sede (Venue):</strong>
                     <select name="venue_id" class="form-control">
                         <option value="">-- Selecciona una Sede --</option>
-                        {{-- Usamos la variable $venues --}}
                         @foreach ($venues as $venue)
                             <option value="{{ $venue->id }}" 
                                 {{ (old('venue_id', $event->venue_id) == $venue->id) ? 'selected' : '' }}>
@@ -84,7 +80,6 @@
                     </select>
                 </div>
             </div>
-            {{-- 🔥 FIN CAMPO DE SELECCIÓN DE SEDE 🔥 --}}
 
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                 <button type="submit" class="btn btn-success">Guardar Cambios</button>

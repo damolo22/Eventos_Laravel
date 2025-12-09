@@ -14,7 +14,6 @@
             <div class="card-body">
                 <div class="row">
                     
-                    {{-- Columna 1: Detalles del Evento (Fecha, ID) --}}
                     <div class="col-md-4 border-end">
                         <h4 class="text-primary mb-3">Detalles Clave</h4>
                         
@@ -36,7 +35,6 @@
                         </div>
                     </div>
 
-                    {{-- Columna 2: Organizador (Relación N:1) --}}
                     <div class="col-md-4 border-end">
                         <h4 class="text-primary mb-3">Organizador</h4>
                         
@@ -45,7 +43,6 @@
                             <div>
                                 <small class="text-muted d-block">Organizado por</small>
                                 <p class="mb-0 fs-5">
-                                    {{-- Enlace al detalle del organizador --}}
                                     <a href="{{ route('organizadores.show', $event->organizer) }}" class="text-decoration-none">
                                         {{ $event->organizer->nombre }}
                                     </a>
@@ -64,7 +61,6 @@
                                 <div>
                                     <small class="text-muted d-block">Nombre de la Sede</small>
                                     <p class="mb-0 fs-5">
-                                        {{-- Enlace al detalle de la sede --}}
                                         <a href="{{ route('venues.show', $event->venue) }}" class="text-decoration-none">
                                             {{ $event->venue->nombre }}
                                         </a>
@@ -104,6 +100,43 @@
             </form>
         </div>
         
+        <div class="card mt-5">
+            <div class="card-header bg-light">
+                <h3 class="mb-0 text-dark">Asistentes Registrados</h3>
+            </div>
+            <div class="card-body p-0">
+                
+                @if($event->asistentes->count() > 0)
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th style="width: 10%;">ID</th>
+                                <th style="width: 40%;">Nombre del Asistente</th>
+                                <th style="width: 30%;">Correo Electrónico</th>
+                                <th style="width: 20%;">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($event->asistentes as $asistente)
+                                <tr>
+                                    <td class="align-middle">{{ $asistente->id }}</td>
+                                    <td class="align-middle">{{ $asistente->nombre }}</td>
+                                    <td class="align-middle">{{ $asistente->correo }}</td>
+                                    <td class="align-middle">
+                                        <a href="{{ route('asistentes.show', $asistente) }}" class="btn btn-info btn-sm">Mostrar Asistente</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                @else
+                    <p class="p-3 text-muted mb-0">
+                        ¡Este evento aún no tiene asistentes registrados!
+                    </p>
+                @endif
+
+            </div>
+        </div>
 
     </div>
 @endsection

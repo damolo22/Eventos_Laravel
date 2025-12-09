@@ -4,7 +4,7 @@
     <div class="container py-4">
         
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1>Detalles del Asistente: **{{ $asistente->nombre }}**</h1>
+            <h1>Detalles del Asistente: {{ $asistente->nombre }}</h1>
             <a href="{{ route('asistentes.index') }}" class="btn btn-outline-secondary">
                 <i class="fas fa-arrow-left me-2"></i> Volver a la Lista
             </a>
@@ -14,7 +14,6 @@
             <div class="card-body">
                 <div class="row">
                     
-                    {{-- Columna 1: Datos de Contacto --}}
                     <div class="col-md-6 border-end">
                         <h4 class="text-primary mb-3">Datos de Contacto</h4>
                         
@@ -35,7 +34,6 @@
                         </div>
                     </div>
 
-                    {{-- Columna 2: Metadatos --}}
                     <div class="col-md-6">
                         <h4 class="text-primary mb-3">Metadatos</h4>
                         
@@ -82,7 +80,6 @@
             </div>
             <div class="card-body">
                 
-                {{-- Usamos $asistente->event para acceder al evento relacionado --}}
                 @if($asistente->event)
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
@@ -93,7 +90,7 @@
                                 Fecha: {{ $asistente->event->fecha->format('d/m/Y H:i') }}
                             </small>
                         </div>
-                        <a href="{{ route('events.show', $asistente->event) }}" class="btn btn-info">Ver Detalles del Evento</a>
+                        <a href="{{ route('events.show', $asistente->event) }}" class="btn btn-success">Ver Detalles del Evento</a>
                     </div>
                 @else
                     <p class="text-muted mb-0">
