@@ -26,14 +26,12 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Nombre:</strong>
-                    {{-- Usa old() para mantener el valor si hay error, sino usa el valor actual del asistente --}}
                     <input type="text" name="nombre" value="{{ old('nombre', $asistente->nombre) }}" class="form-control" placeholder="Nombre">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Correo Electrónico:</strong>
-                    {{-- Usa old() para mantener el valor si hay error, sino usa el valor actual del asistente --}}
                     <input type="email" name="correo" value="{{ old('correo', $asistente->correo) }}" class="form-control" placeholder="Correo">
                 </div>
             </div>
@@ -42,16 +40,13 @@
                 <div class="form-group mb-4">
                     <strong>Asignar a Evento:</strong>
                     <select name="event_id" id="event_id" class="form-control">
-                        {{-- Opción Nula/Opcional --}}
                         <option value="">-- Selecciona un Evento (Ninguno) --</option>
                         
-                        {{-- Iterar sobre todos los eventos --}}
                         @foreach ($events as $event)
                             <option 
                                 value="{{ $event->id }}" 
                                 {{-- Lógica clave: Verifica si el ID del evento actual es igual al event_id guardado en el asistente, o si se intentó guardar con old() --}}
-                                {{ (old('event_id', $asistente->event_id) == $event->id) ? 'selected' : '' }}
-                            >
+                                {{ (old('event_id', $asistente->event_id) == $event->id) ? 'selected' : '' }}>
                                 {{ $event->titulo }}
                             </option>
                         @endforeach

@@ -83,6 +83,6 @@ class VenueController extends Controller
         $venue->delete();
 
         return redirect()->route('venues.index')
-        ->with('success', 'Sede eliminada. ¡Bye, bye! 👋');
+        ->with('success', 'Sede eliminada.');
     }
 }

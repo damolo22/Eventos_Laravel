@@ -23,7 +23,6 @@
         @method('PUT')
 
         <div class="row">
-            {{-- Título --}}
             <div class="col-xs-12 col-sm-12 col-md-12 mb-3">
                 <div class="form-group">
                     <strong>Título del Evento:</strong>
@@ -31,7 +30,6 @@
                 </div>
             </div>
             
-            {{-- Descripción --}}
             <div class="col-xs-12 col-sm-12 col-md-12 mb-3">
                 <div class="form-group">
                     <strong>Descripción:</strong>
@@ -39,7 +37,6 @@
                 </div>
             </div>
 
-            {{-- Fecha y Hora --}}
             <div class="col-xs-12 col-sm-12 col-md-6 mb-3">
                 <div class="form-group">
                     <strong>Fecha y Hora:</strong>
@@ -50,7 +47,6 @@
                 </div>
             </div>
 
-            {{-- Organizador (Relación N:1) --}}
             <div class="col-xs-12 col-sm-12 col-md-6 mb-3">
                 <div class="form-group">
                     <strong>Organizador:</strong>

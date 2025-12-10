@@ -12,9 +12,8 @@ class Asistente extends Model
 
     protected $fillable = ['nombre', 'correo','event_id'];
 
-public function event()
-    {
-    // Un Asistente pertenece a un Evento
-    return $this->belongsTo(Event::class);
+    public function event() {
+        // Un Asistente pertenece a un Evento
+        return $this->belongsTo(Event::class);
     }
 }

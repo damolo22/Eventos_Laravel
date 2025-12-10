@@ -4,7 +4,7 @@
     <div class="container py-4">
         
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1>Detalles de : **{{ $organizadore->nombre }}**</h1>
+            <h1>Detalles de : {{ $organizadore->nombre }}</h1>
             <a href="{{ route('organizadores.index') }}" class="btn btn-outline-secondary">
                 <i class="fas fa-arrow-left me-2"></i> Volver a la Lista
             </a>

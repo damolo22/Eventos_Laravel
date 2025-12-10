@@ -56,7 +56,7 @@
                         </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="text-center text-muted py-3">No hay sedes para mostrar. ¡Crea la primera! 🏟️</td>
+                                <td colspan="5" class="text-center text-muted py-3">No hay sedes para mostrar.</td>
                             </tr>
                         @endforelse
                     </tbody>

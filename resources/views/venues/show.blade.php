@@ -14,7 +14,6 @@
             <div class="card-body">
                 <div class="row">
                     
-                    {{-- Columna 1: Datos Físicos --}}
                     <div class="col-md-6 border-end">
                         <h4 class="text-primary mb-3">Ubicación y Capacidad</h4>
                         
@@ -35,7 +34,6 @@
                         </div>
                     </div>
 
-                    {{-- Columna 2: Metadatos --}}
                     <div class="col-md-6">
                         <h4 class="text-primary mb-3">Metadatos</h4>
                         

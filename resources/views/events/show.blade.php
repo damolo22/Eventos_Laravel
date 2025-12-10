@@ -123,7 +123,7 @@
                                     <td class="align-middle">{{ $asistente->nombre }}</td>
                                     <td class="align-middle">{{ $asistente->correo }}</td>
                                     <td class="align-middle">
-                                        <a href="{{ route('asistentes.show', $asistente) }}" class="btn btn-info btn-sm">Mostrar Asistente</a>
+                                        <a href="{{ route('asistentes.show', $asistente) }}" class="btn btn-success btn-sm">Mostrar Asistente</a>
                                     </td>
                                 </tr>
                             @endforeach
